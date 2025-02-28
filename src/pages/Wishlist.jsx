@@ -9,6 +9,7 @@ const Wishlist = () => {
 
   return (
     <div className="container mt-4">
+      <div className='row'>
       <h2>Wishlist</h2>
       {wishlist.length === 0 ? <p>Your wishlist is empty.</p> : wishlist.map(item => (
         <div key={item.id} className="col-md-3 mb-4">
@@ -18,9 +19,7 @@ const Wishlist = () => {
                         className="w-100 h-100 object-fit-contain p-4"
                         alt={item.name}
                         />
-        
-                    </div>
-                    
+                    </div>                    
                     <div className="card-body-small h-50">
                         <div className='h-50'>
                         <h5 className="card-title ps-3">{item.title}</h5>
@@ -38,11 +37,12 @@ const Wishlist = () => {
                           }}>
                           Add to Cart
                         </button>
-                      </div>
+                   </div>
                         
-                  </div>
+                </div>
           </div>
       ))}
+      </div>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { login } from '../redux/slices/authSlice';
@@ -11,49 +11,48 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [user,setUser] = useState([])
 
-
-const [user,setUser] = useState([])
-
-  const handleLogin = async (e) => {
-    e.preventDefault();
-
-     await checkUserCredentials();
-  };
-  
+  useEffect(()=>{
+    getAllusers();
+  },[]);
 
   const getAllusers = async()=>{
     const q = query(collection(db,'user'));
-    const users = onSnapshot(q,(QuerySnapshot)=>{
+    const users = onSnapshot(q,(querySnapshot)=>{
       let userArray = [];
-      QuerySnapshot.forEach((doc)=>{
+      querySnapshot.forEach((doc)=>{
         userArray.push({...doc.data(),id:doc.id})
       })
       setUser(userArray)
     });
     return users;
   }
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    const foundUser = user.find(
+      (u) => u.user.username === username && u.user.password === password
+    );
+
+    if (!foundUser) {
+      toast.error("Invalid Credentials", { position: "top-right", autoClose: 2000 });
+      return;
+    }
+
+    toast.success("Login successful", { position: "top-right", autoClose: 2000 });
+
+    // ✅ Store user in Redux
+    dispatch(login(foundUser));
+
+    // ✅ Store user in LocalStorage for persistence
+    localStorage.setItem("user", JSON.stringify(foundUser));
+    localStorage.setItem("isLoggedIn", "true");
+
+    navigate("/");
+  };
+ 
   
-  const checkUserCredentials = async() =>{
-   await getAllusers();
-   let foundUser = null;
-    for(let i=0; i<user.length; i++ ){
-      if(user[i].user.username !== username || user[i].user.password !== password){
-        toast.error('Invalid Credentials', {
-          position: 'top-right',
-          autoClose: 2000,
-        });
-        break;
-      } else{
-        toast.success('Login successful', {
-          position: 'top-right',
-          autoClose: 2000,
-        });
-        localStorage.setItem('user', JSON.stringify(foundUser));
-        navigate('/');
-    }
-    }
-  }
   return (
     <div className="container d-flex justify-content-center align-items-center vh-100">
       <div className="card shadow-lg p-4" style={{ width: '400px' }}>

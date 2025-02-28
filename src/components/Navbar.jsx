@@ -27,13 +27,26 @@ const Navbar = ({ setFilteredProducts }) => {
             <li className="nav-item">
               <Link className="nav-link" to="/">Home</Link>
             </li>
-            
-            <li className="nav-item">
-              <Link className="nav-link" to="/cart">Cart ({cartItems})</Link>
+            {isLoggedIn ? (
+               <li className="nav-item">
+               <Link className="nav-link" to="/cart">Cart ({cartItems})</Link>
+             </li>
+            ):(
+              <li className="nav-item">
+              <Link className="nav-link" to="/cart">Cart ({0})</Link>
             </li>
+            ) }
+
+            {isLoggedIn? (
             <li className="nav-item">
               <Link className="nav-link" to="/wishlist">Wishlist ({wishlistItems})</Link>
             </li>
+            ):(
+              <li className="nav-item">
+              <Link className="nav-link" to="/wishlist">Wishlist ({0})</Link>
+            </li>
+            )
+            }
             <li className='nav-item'>
               <Link className='nav-link' to='/signup'>SignUp</Link>
             </li>
@@ -44,7 +57,6 @@ const Navbar = ({ setFilteredProducts }) => {
             ) : (
               <li className="nav-item">
                 <Link className="nav-link" to="/login">Login</Link>
-          
               </li>
             )}
             {isLoggedIn && (

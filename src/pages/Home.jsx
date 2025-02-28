@@ -3,14 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../redux/slices/productSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { addToCart } from "../redux/slices/cartSlice";
-import{login} from '../redux/slices/authSlice'
-import { toast,ToastContainer } from "react-toastify";
-import { Carousel } from "@coreui/coreui";
+import { toast } from "react-toastify";
 import Banner from "../components/Banner";
+import { addToWishlist } from "../redux/slices/wishlistSlice";
 
 const Home = () => {
   const dispatch = useDispatch();
   const { items, status } = useSelector((state) => state.products);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,13 +19,31 @@ const Home = () => {
     }
   }, [dispatch, status]);
 
-  const handleAddToCart=()=>{
-    if(!isLoggedIn){
-      navigate('/login')
-    }else{
+  const handleAddToCart = (product) => {
+    if (!isLoggedIn) {
+      toast.warning('Please login to add items to the cart!', {
+        position: 'top-right',
+        autoClose: 2000,
+      });
+      navigate('/login');
+    } else {
       dispatch(addToCart(product));
+      toast.success('Product added to the cart!', {
+        position: 'top-right',
+        autoClose: 2000,
+      });
+
     }
+  };
+
+  const handleToAddWishList=(product)=>{
+      dispatch(addToWishlist(product));
+      toast.success('Product added wishList!', {
+        position: 'top-right',
+        autoClose: 2000,
+      });
   }
+  
 
   if (status === "loading") return <h3 className="text-center mt-5">Loading...</h3>;
 
@@ -51,15 +69,12 @@ const Home = () => {
               </Link>
               <div className="text-center my-2">
                 <button className="btn btn-primary me-2"
-                onClick={()=>{handleAddToCart
-                  toast.success('Product added to the cart', {
-                          position: 'top-right',
-                          autoClose: 2000,
-                        });
-                    }  
+                onClick={()=>handleAddToCart(product)  
                 }
                 >Add to Cart</button>
-                <button className="btn btn-danger">Wishlist</button>
+                <button className="btn btn-danger"
+                onClick={()=>handleToAddWishList(product)}
+                >Wishlist</button>
               </div>
             </div>
           </div>

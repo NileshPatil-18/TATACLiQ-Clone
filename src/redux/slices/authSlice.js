@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const initialState={
+  isLoggedIn: localStorage.getItem("isLoggedIn")=== "true",
+  user:JSON.parse(localStorage.getItem("user"))||null,
+}
 const authSlice = createSlice({
   name: 'auth',
-  initialState: { 
-    user: null, 
-    isLoggedIn: false
-   },
+  initialState,
   reducers:{
     signup: (state, action) => {
     state.user = action.payload;

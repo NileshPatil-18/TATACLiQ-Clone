@@ -3,14 +3,14 @@ import { useSelector } from 'react-redux';
 
 const Search = ({setFilteredProducts}) => {
     const [query,setQuery] = useState('');
-    const products = useSelector(state=>state.products.items);
+    const products = useSelector(state=>state.products.items ||[]);
 
     const handleSearch = (e) =>{
         const value = e.target.value.toLowerCase();
         setQuery(value);
 
     const filtered = products.filter(product=>
-        product.tilte.toLowerCase().includes(value)||
+        product.title.toLowerCase().includes(value)||
         product.category.toLowerCase().includes(value)
     );
     setFilteredProducts(filtered);
@@ -24,7 +24,7 @@ const Search = ({setFilteredProducts}) => {
       value={query} 
       onChange={handleSearch} 
     />
-    <button className="btn btn-outline-light" type="submit">Search</button>
+    <button className="btn btn-outline-light bg-white text-black" type="submit">Search</button>
   </form>
   )
 }
