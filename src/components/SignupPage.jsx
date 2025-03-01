@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { signup } from '../redux/slices/authSlice';
 import { addDoc,collection } from 'firebase/firestore';
 import { db } from '../firebase';
@@ -50,11 +50,12 @@ const SignupPage = () => {
     }
     addUser();
     dispatch(signup({ username: userdata.username, email: userdata.email }));
-    navigate('/login');
+    navigate('/');
   };
 
   return (
     <div className="container d-flex justify-content-center align-items-center min-vh-100">
+      <ToastContainer/>
       <div className="card shadow-lg p-4 rounded border-0" style={{ maxWidth: '400px', width: '100%' }}>
         <h2 className="text-center mb-4">Create an Account</h2>
         <form onSubmit={handleSignup}>
@@ -108,7 +109,7 @@ const SignupPage = () => {
           </div>
           <button type="submit" className="btn btn-primary w-100">Sign Up</button>
         </form>
-        <p className="text-center mt-3">Already have an account? <a href="/login" className="text-decoration-none">Login</a></p>
+        <p className="text-center mt-3">Already have an account? <Link to="/login" className="text-decoration-none">Login</Link></p>
       </div>
     </div>
   );

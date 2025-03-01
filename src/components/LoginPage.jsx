@@ -64,7 +64,9 @@ const LoginPage = () => {
   };
 
   return (
+    
     <div className="container d-flex justify-content-center align-items-center vh-100">
+      <ToastContainer/>
       <div className="card shadow-lg p-4" style={{ width: "400px" }}>
         <h2 className="text-center mb-3">Welcome Back!</h2>
         <p className="text-center text-muted">Sign in to continue</p>
@@ -102,7 +104,6 @@ const LoginPage = () => {
           </p>
         </div>
       </div>
-      <ToastContainer />
     </div>
   );
 };
