@@ -1,32 +1,66 @@
-import React, { useState } from 'react'
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setSearchTerm } from "../redux/slices/productSlice";
+import { Link } from "react-router-dom";
 
-const Search = ({setFilteredProducts}) => {
-    const [query,setQuery] = useState('');
-    const products = useSelector(state=>state.products.items ||[]);
+const Search = () => {
+  const dispatch = useDispatch();
+  const searchTerm = useSelector((state) => state.products.searchTerm);
+  const products = useSelector((state) => state.products.items) || [];
+  const [filteredProducts, setFilteredProducts] = useState([]);
 
-    const handleSearch = (e) =>{
-        const value = e.target.value.toLowerCase();
-        setQuery(value);
-
-    const filtered = products.filter(product=>
-        product.title.toLowerCase().includes(value)||
-        product.category.toLowerCase().includes(value)
-    );
-    setFilteredProducts(filtered);
+  // Filter products dynamically
+  useEffect(() => {
+    if (searchTerm) {
+      setFilteredProducts(
+        products.filter((product) =>
+          product?.title?.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      );
+    } else {
+      setFilteredProducts([]); // Reset results if search is empty
     }
-  return (
-    <form className="d-flex" onSubmit={(e) => e.preventDefault()}>
-    <input 
-      type="text" 
-      className="form-control me-2" 
-      placeholder="Search by name or category..." 
-      value={query} 
-      onChange={handleSearch} 
-    />
-    <button className="btn btn-outline-light bg-white text-black" type="submit">Search</button>
-  </form>
-  )
-}
+  }, [searchTerm, products]);
 
-export default Search
+  // Function to clear search input when clicking a product
+  const handleProductClick = () => {
+    dispatch(setSearchTerm("")); // Reset search input
+  };
+
+  return (
+    <div className="position-relative w-100">
+      {/* Search Bar */}
+      <input
+        type="search"
+        className="form-control"
+        placeholder="Search products..."
+        value={searchTerm}
+        onChange={(e) => dispatch(setSearchTerm(e.target.value))}
+      />
+
+      {/* Search Results Dropdown */}
+      {searchTerm && filteredProducts.length > 0 && (
+        <div className="search-dropdown position-absolute w-100 bg-white shadow-lg rounded p-2">
+          {filteredProducts.map((product) => (
+            <Link
+              key={product.id}
+              to={`/product/${product.id}`}
+              className="d-flex align-items-center p-2 border-bottom text-dark text-decoration-none"
+              onClick={handleProductClick} // 👈 Clears search term on click
+            >
+              <img
+                src={product.image}
+                alt={product.title}
+                className="me-2"
+                style={{ width: "40px", height: "40px", objectFit: "contain" }}
+              />
+              <span className="text-truncate">{product.title}</span>
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Search;

@@ -9,20 +9,25 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import SignupPage from './components/SignupPage';
 import Footer from './components/Footer';
+import Search from './components/Search';
+import Categories from './components/Categories';
+
 
 function App() {
   return (
     <>
+    <ToastContainer position="top-right" autoClose={2000} /> 
     <Router>
-      <Navbar />
-         <ToastContainer />  
+    <Navbar/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/cart" element={<Cart/>} />
         <Route path="/wishlist" element={<Wishlist />} />
+        <Route path='/search' element={<Search/>}/>
         <Route path="/product/:id" element={<ProductDetail />} />
         <Route path='/login' element={<LoginPage/>}/>
         <Route path='/signup' element={<SignupPage/>}/>
+        <Route path='/category/:categoryName' element={<Categories/>}/>
       </Routes>
     </Router>
     <Footer/>

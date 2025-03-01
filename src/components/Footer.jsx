@@ -1,4 +1,5 @@
 import React from "react";
+import { FaCcVisa, FaCcMastercard, FaCcPaypal, FaFacebookF, FaInstagram, FaTwitter } from "react-icons/fa";
 
 const Footer = () => {
   return (
@@ -7,62 +8,83 @@ const Footer = () => {
         {/* Top Icons Section */}
         <div className="row text-center mb-4">
           <div className="col-md-4">
-            <img src="https://via.placeholder.com/50" alt="Authentic Brands" />
-            <p className="mt-2">Authentic Brands</p>
+            
+            <p className="mt-2 fw-semibold">Authentic Brands</p>
           </div>
           <div className="col-md-4">
-            <img src="https://via.placeholder.com/50" alt="Easy Returns" />
-            <p className="mt-2">Easy Returns</p>
+            
+            <p className="mt-2 fw-semibold">Easy Returns</p>
           </div>
           <div className="col-md-4">
-            <img src="https://via.placeholder.com/50" alt="Easy Payments" />
-            <p className="mt-2">Easy Payments</p>
+           
+            <p className="mt-2 fw-semibold">Easy Payments</p>
           </div>
         </div>
 
         {/* Footer Links Section */}
-        <div className="row text-start">
-          <div className="col-md-3">
+        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 text-start">
+          <div className="col mb-4">
             <h6 className="fw-bold">Tata Marketplace</h6>
             <ul className="list-unstyled">
-              <li><a href="#" className="text-dark text-decoration-none">About Us</a></li>
-              <li><a href="#" className="text-dark text-decoration-none">Careers</a></li>
-              <li><a href="#" className="text-dark text-decoration-none">Sell With Us</a></li>
-              <li><a href="#" className="text-dark text-decoration-none">Terms of Use</a></li>
-              <li><a href="#" className="text-dark text-decoration-none">Privacy Policy</a></li>
+              {["About Us", "Careers", "Sell With Us", "Terms of Use", "Privacy Policy"].map((item) => (
+                <li key={item}>
+                  <a href="#" className="text-dark text-decoration-none d-block py-1">{item}</a>
+                </li>
+              ))}
             </ul>
           </div>
 
-          <div className="col-md-3">
+          <div className="col mb-4">
             <h6 className="fw-bold">Customer Service</h6>
             <ul className="list-unstyled">
-              <li><a href="#" className="text-dark text-decoration-none">Shopping</a></li>
-              <li><a href="#" className="text-dark text-decoration-none">Offers & Promotions</a></li>
-              <li><a href="#" className="text-dark text-decoration-none">Payments</a></li>
-              <li><a href="#" className="text-dark text-decoration-none">Returns & Refunds</a></li>
-              <li><a href="#" className="text-dark text-decoration-none">Contact Us</a></li>
+              {["Shopping", "Offers & Promotions", "Payments", "Returns & Refunds", "Contact Us"].map((item) => (
+                <li key={item}>
+                  <a href="#" className="text-dark text-decoration-none d-block py-1">{item}</a>
+                </li>
+              ))}
             </ul>
           </div>
 
-          <div className="col-md-3">
+          <div className="col mb-4">
             <h6 className="fw-bold">My Tata Cliq</h6>
             <ul className="list-unstyled">
-              <li><a href="#" className="text-dark text-decoration-none">My Account</a></li>
-              <li><a href="#" className="text-dark text-decoration-none">My Orders</a></li>
-              <li><a href="#" className="text-dark text-decoration-none">My Shopping Bag</a></li>
-              <li><a href="#" className="text-dark text-decoration-none">My Wishlist</a></li>
+              {["My Account", "My Orders", "My Shopping Bag", "My Wishlist"].map((item) => (
+                <li key={item}>
+                  <a href="#" className="text-dark text-decoration-none d-block py-1">{item}</a>
+                </li>
+              ))}
             </ul>
           </div>
 
-          <div className="col-md-3">
+          <div className="col mb-4">
             <h6 className="fw-bold">Tata Cliq Offerings</h6>
             <ul className="list-unstyled">
-              <li><a href="#" className="text-dark text-decoration-none">Watches for Men</a></li>
-              <li><a href="#" className="text-dark text-decoration-none">Sneakers for Men</a></li>
-              <li><a href="#" className="text-dark text-decoration-none">Casual Shoes for Women</a></li>
-              <li><a href="#" className="text-dark text-decoration-none">Wallets for Men</a></li>
-              <li><a href="#" className="text-dark text-decoration-none">Gold Rings</a></li>
+              {["Watches for Men", "Sneakers for Men", "Casual Shoes for Women", "Wallets for Men", "Gold Rings"].map((item) => (
+                <li key={item}>
+                  <a href="#" className="text-dark text-decoration-none d-block py-1">{item}</a>
+                </li>
+              ))}
             </ul>
+          </div>
+        </div>
+
+        {/* Social Media & Payment Options */}
+        <div className="row text-center mt-4">
+          <div className="col">
+            <h6 className="fw-bold">Follow Us</h6>
+            <div className="d-flex justify-content-center gap-3">
+              <a href="#" className="text-dark fs-5"><FaFacebookF /></a>
+              <a href="#" className="text-dark fs-5"><FaInstagram /></a>
+              <a href="#" className="text-dark fs-5"><FaTwitter /></a>
+            </div>
+          </div>
+          <div className="col">
+            <h6 className="fw-bold">We Accept</h6>
+            <div className="d-flex justify-content-center gap-3">
+              <FaCcVisa className="fs-3 text-primary" />
+              <FaCcMastercard className="fs-3 text-danger" />
+              <FaCcPaypal className="fs-3 text-info" />
+            </div>
           </div>
         </div>
 

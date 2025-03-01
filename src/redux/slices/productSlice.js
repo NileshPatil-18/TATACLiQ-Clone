@@ -12,8 +12,13 @@ const productSlice = createSlice({
     items: [],
     status: 'idle',
     error: null,
+    searchTerm:'',
   },
-  reducers: {},
+  reducers: {
+    setSearchTerm: (state, action) => {
+      state.searchTerm = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchProducts.pending, (state) => {
@@ -30,4 +35,5 @@ const productSlice = createSlice({
   },
 });
 
+export const { setSearchTerm } = productSlice.actions
 export default productSlice.reducer;

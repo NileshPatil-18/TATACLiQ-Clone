@@ -1,20 +1,21 @@
 import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // Import styles
 import React from "react";
 
 const Banner = () => {
   return (
-    <div className="w-100 mx-auto mt-3 " style={{ maxWidth: "1200px" }}>
+    <div className="container-fluid mt-3">
       <Carousel
         showThumbs={false}
         autoPlay
         infiniteLoop
-        interval={4000}
+        interval={3000} // Faster transitions for dynamic feel
         showStatus={false}
         showIndicators={true}
-        dynamicHeight={false}
         stopOnHover={true}
+        transitionTime={800} // Smooth transitions
       >
+        {/* Banner 1 */}
         <div>
           <img
             src="https://assets.tatacliq.com/medias/sys_master/images/63923663568926.jpg"
@@ -23,6 +24,8 @@ const Banner = () => {
             alt="Sale Banner 1"
           />
         </div>
+
+        {/* Banner 2 */}
         <div>
           <img
             src="https://assets.tatacliq.com/medias/sys_master/images/63923663110174.jpg"
@@ -31,6 +34,8 @@ const Banner = () => {
             alt="Sale Banner 2"
           />
         </div>
+
+        {/* Banner 3 */}
         <div>
           <img
             src="https://assets.tatacliq.com/medias/sys_master/images/63923663503390.jpg"
