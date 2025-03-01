@@ -13,10 +13,6 @@ dist-ssr
 *.local
 
 # Firebase Config File
-firebase.js
-firebaseConfig.js
-src/firebase.js
-src/firebaseConfig.js
 .env
 
 # Editor directories and files
